@@ -1,0 +1,15 @@
+apiVersion: v1
+name: apps
+description: A Helm chart for managing additional Argo CD Applications
+type: application
+version: 2.0.0
+home: https://github.com/JimBugwadia/demo-namespaces-as-a-service/
+icon: 
+keywords:
+- gitops
+- multi-tenancy
+- namespaces-as-a-service
+maintainers:
+  - name: Nirmata
+    url: https://nirmata.com
+annotations:

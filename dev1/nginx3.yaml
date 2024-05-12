@@ -3,7 +3,7 @@ applications:
     project: default
     source:
       repoURL: 'https://github.com/akuity/kargo-demo/'
-      path: stages/prod
+      path: stages/test
       targetRevision: HEAD
       kustomize:
         images:

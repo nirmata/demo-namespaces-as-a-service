@@ -14,10 +14,12 @@ spec:
           - Namespace
     exclude:
       any:
-      - clusterRoles:
-         - argocd-manager-role
+      - subjects:
+        - kind: User
+          name: kubernetes-admin
     validate:
       message: >-
         Namespaces are managed via ArgoCD on this cluster.
         Please use https://github.com/nirmata/demo-namespaces-as-a-service.
+        Request denied for {{ request.userInfo | to_string(@) }}.
       deny: {}

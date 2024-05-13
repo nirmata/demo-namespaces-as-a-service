@@ -17,11 +17,11 @@ applications:
       automated:
         prune: true
         selfHeal: true
-        managedNamespaceMetadata:
-          labels:
-            argocd.argoproj.io/instance: nginx-shared2
-          annotations:
-            argocd.argoproj.io/tracking-id: >-
-              nginx-shared2:apps/Namespace:nginx/nginx
+      managedNamespaceMetadata:
+        labels:
+          argocd.argoproj.io/instance: nginx-shared2
+        annotations:
+          argocd.argoproj.io/tracking-id: >-
+            nginx-shared2:apps/Namespace:nginx/nginx
       syncOptions:
       - CreateNamespace=true

@@ -1,0 +1,70 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: create-appset
+spec:
+  rules:
+    - name: watch-secret
+      match:
+        all:
+        - resources:
+            namespaces:
+            - argocd
+            kinds:
+            - Secret
+            selector:
+              matchLabels:
+                argocd.argoproj.io/secret-type: cluster
+            operations:
+            - CREATE
+      context:
+      - name: name
+        variable:
+          value: "{{  request.object.data.name | base64_decode(@) }}"
+          jmesPath: 'to_string(@)'
+      - name: server
+        variable:
+          value: "{{ request.object.data.server | base64_decode(@) }}"
+          jmesPath: 'to_string(@)'
+      generate:
+        synchronize: true
+        apiVersion: argoproj.io/v1alpha1
+        kind: ApplicationSet
+        name: "{{ name }}"
+        namespace: argocd
+        data:
+          spec:
+            syncPolicy:
+              preserveResourcesOnDeletion: false
+            generators:
+            - git:
+                files:
+                - path: "{{name}}/**.yaml"
+                repoURL: https://github.com/JimBugwadia/demo-namespaces-as-a-service
+                revision: HEAD
+            template:
+              metadata:
+                name: '\{{path.basename}}-\{{path.filename}}'
+                finalizers:
+                - resources-finalizer.argocd.argoproj.io
+              spec:
+                destination:
+                  namespace: argocd
+                  server: https://kubernetes.default.svc
+                project: default
+                sources:
+                - chart: argocd-apps
+                  helm:
+                    valueFiles:
+                    - $values/\{{path.basename}}/\{{path.filename}}
+                  repoURL: https://argoproj.github.io/argo-helm
+                  targetRevision: 2.0.0
+                - ref: values
+                  repoURL: https://github.com/JimBugwadia/demo-namespaces-as-a-service
+                  targetRevision: main
+                syncPolicy:
+                  automated:
+                    allowEmpty: true
+                    prune: true
+                    selfHeal: true
+

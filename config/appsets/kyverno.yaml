@@ -1,0 +1,40 @@
+kind: ApplicationSet
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: kyverno
+  namespace: argocd
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          argocd.argoproj.io/secret-type: cluster     
+  template: 
+    metadata:
+      name: '{{name}}-kyverno'
+      annotations:
+        argocd.argoproj.io/sync-wave: "1"
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: "default"
+      sources:
+      - chart: kyverno
+        repoURL: https://kyverno.github.io/kyverno/
+        targetRevision: 3.2.2
+      destination:
+        server: '{{server}}'
+        namespace: kyverno
+      syncPolicy:
+        syncOptions:
+        - Replace=true
+        - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
+        retry:
+          limit: 30
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s

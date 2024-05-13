@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: block-ns
+spec:
+  background: true
+  validationFailureAction: Enforce
+  rules:
+  - name: check-role
+    match:
+      all:
+      - resources:
+          kinds:
+          - Namespace
+    exclude:
+      any:
+      - clusterroles:
+         - argocd-manager-role
+         - cluster-admin
+    validate:
+      message: "Namespaces are managed via ArgoCD on this cluster. Please update at https://github.com/nirmata/demo-namespaces-as-a-service."
+      deny: {}

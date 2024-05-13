@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: mutate-apps
+spec:
+  rules:
+  - name: set-defaults
+    match:
+      any:
+      - resources:
+          kinds:
+          - Application
+          operations:
+          - CREATE
+    mutate:
+      patchStrategicMerge:
+        finalizers:
+        - resources-finalizer.argocd.argoproj.io
+        spec:
+          +(project): default
+          destination:
+            +(server): 'https://10.0.0.107:64571'
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            managedNamespaceMetadata:
+              labels:
+                argocd.argoproj.io/instance: "{{request.name}}"
+              annotations:
+                argocd.argoproj.io/tracking-id: >-
+                  {{request.name}}:apps/Namespace:{{request.object.spec.destination.namespace}}/{{request.object.spec.destination.namespace}}
+            syncOptions:
+            - CreateNamespace=true

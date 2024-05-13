@@ -47,6 +47,8 @@ spec:
                 name: '\{{path.basename}}-\{{path.filename}}'
                 finalizers:
                 - resources-finalizer.argocd.argoproj.io
+                annotations:
+                  argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
               spec:
                 destination:
                   namespace: argocd

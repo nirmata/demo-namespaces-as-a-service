@@ -1,0 +1,19 @@
+applications:
+  nginx3:
+    project: default
+    source:
+      repoURL: 'https://github.com/akuity/kargo-demo/'
+      path: stages/test
+      targetRevision: HEAD
+      kustomize:
+        images:
+        - 'nginx:latest'
+    destination:
+      server: 'https://192.168.62.129:59866'
+      namespace: nginx4
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true

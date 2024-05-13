@@ -4,7 +4,7 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     source:
-      repoURL: 'https://github.com/jimbugwadia/demo-namespaces-as-a-service/'
+      repoURL: 'https://github.com/nirmata/demo-namespaces-as-a-service/'
       path: config/apps/namespace
       targetRevision: HEAD
     destination:

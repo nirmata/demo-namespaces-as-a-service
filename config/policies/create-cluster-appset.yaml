@@ -40,7 +40,7 @@ spec:
             - git:
                 files:
                 - path: "{{name}}/**.yaml"
-                repoURL: https://github.com/JimBugwadia/demo-namespaces-as-a-service
+                repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
                 revision: HEAD
             template:
               metadata:
@@ -62,7 +62,7 @@ spec:
                   repoURL: https://argoproj.github.io/argo-helm
                   targetRevision: 2.0.0
                 - ref: values
-                  repoURL: https://github.com/JimBugwadia/demo-namespaces-as-a-service
+                  repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
                   targetRevision: main
                 syncPolicy:
                   automated:

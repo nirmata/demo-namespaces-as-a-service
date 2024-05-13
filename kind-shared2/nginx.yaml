@@ -1,22 +1,3 @@
 applications:
-  nginx-shared2:
-    project: default
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    source:
-      repoURL: 'https://github.com/akuity/kargo-demo/'
-      path: stages/test
-      targetRevision: HEAD
-      kustomize:
-        images:
-        - 'nginx:latest'
-    destination:
-      server: 'https://10.0.0.107:64571'
-      namespace: nginx
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-      - CreateNamespace=true
+
 

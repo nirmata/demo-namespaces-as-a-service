@@ -1,5 +1,5 @@
 applications:
-  nginx3:
+  nginx4:
     project: default
     source:
       repoURL: 'https://github.com/akuity/kargo-demo/'

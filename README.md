@@ -2,21 +2,12 @@
 
 This repository contains a demo of self-service namespaces using GitOps and Policy as Code (PaC).
 
-ArgoCD is used for GitOps and Kyverno is used for policy and governance.
-
-```mermaid
-flowchart LR
-  Develop-->Test-->Distribute-->Enforce-->Observe-->Manage-->Develop;
-```
-
 ## Installation
 
-Install and Configure ArgoCD
-
-1. Create a `hub` cluster
+1. Install [kind](https://kind.sigs.k8s.io/) and create a cluster for ArgoCD:
 
 ```sh
-kind create cluster --name hub
+kind create cluster --name argocd
 ```
 
 2. Install and configure Kyverno
@@ -58,13 +49,13 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 Navigate to: https://127.0.0.1:8080/
 
-Login through argocd cli
+Install the [argocd CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/) and login:
 
 ```sh
 argocd login localhost:8080 --username admin --password <SECRET>
 ```
 
-Updated the ArgoCD ConfigMap to track resources based on annotations. 
+Update the ArgoCD ConfigMap to track resources based on annotations. 
 This is required to clean up self-service namespaces:
 
 https://github.com/argoproj/argo-cd/issues/7875#issuecomment-1954504713
@@ -76,19 +67,40 @@ kubectl -n argocd patch configmap argocd-cm --type merge -p '{"data":{"applicati
 Install ArgoCD application sets
 
 ```sh
-
+kubectl apply -f config/appsets/
 ```
 
 3. Create a shared cluster
+
+To allow ArgoCD on the `argocd` cluster to communicate with the `shared` cluster, the `shared` cluster needs to be configured to use an external IP address i.e. your local machine address.
+
+Run this script to create a kind configuration:
 
 ```sh
 ./config/kind/create.sh
 ```
 
+Create the kind cluster:
+
 ```sh
-kind create cluster --name shared1 --config /tmp/kind-config.yaml
+kind create cluster --name shared --config /tmp/kind-config.yaml
 ```
+
+3. Create a Namespace on the shared cluster
+
+...
+
+
+4. Create an Application on the shared cluster
+
+...
+
 
 ## Cleanup
 
-Demonstrations of secure self-service for Kubernetes Namespaces
+To cleanup, delete the two kind clusters:
+
+```sh
+kind delete cluster --name shared
+kind delete cluster --name argocd
+```

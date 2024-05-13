@@ -9,7 +9,7 @@ applications:
       targetRevision: HEAD
     destination:
       server: 'https://10.0.0.107:64571'
-      namespace: nginx
+      namespace: test
     syncPolicy:
       automated:
         prune: true

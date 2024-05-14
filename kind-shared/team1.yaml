@@ -2,7 +2,7 @@ applications:
   shared-test:
     source:
       repoURL: 'https://github.com/nirmata/demo-namespaces-as-a-service/'
-      path: config/apps/namespace
+      path: config/sample-apps/namespace
       targetRevision: HEAD
     destination:
       namespace: test

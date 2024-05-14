@@ -1,5 +1,6 @@
 applications:
   shared-test:
+    project: default
     additionalLabels:
       owner: ned
     source:

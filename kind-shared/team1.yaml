@@ -1,25 +1,8 @@
 applications:
   shared-test:
-    project: default
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
     source:
       repoURL: 'https://github.com/nirmata/demo-namespaces-as-a-service/'
-      path: config/apps/namespace
+      path: config/sample-apps/namespace
       targetRevision: HEAD
     destination:
-      server: 'https://10.0.0.107:64571'
       namespace: test
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
-      managedNamespaceMetadata:
-        labels:
-          argocd.argoproj.io/instance: test
-        annotations:
-          argocd.argoproj.io/tracking-id: >-
-            nginx-shared2:apps/Namespace:nginx/nginx
-      syncOptions:
-      - CreateNamespace=true
-

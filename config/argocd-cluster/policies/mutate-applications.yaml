@@ -24,8 +24,9 @@ spec:
         namespace: kyverno
     mutate:
       patchStrategicMerge:
-        finalizers:
-        - resources-finalizer.argocd.argoproj.io
+        metadata:
+          finalizers:
+          - resources-finalizer.argocd.argoproj.io
         spec:
           +(project): default
           destination:

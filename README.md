@@ -50,6 +50,11 @@ https://github.com/argoproj/argo-cd/issues/7875#issuecomment-1954504713
 kubectl -n argocd patch configmap argocd-cm --type merge -p '{"data":{"application.resourceTrackingMethod": "annotation+label"}}'
 ```
 
+```sh
+kubectl -n argocd patch configmap argocd-cm --type merge -p '{"data":{"application.instanceLabelKey": "argocd.argoproj.io/instance"}}'
+```
+
+
 Install ArgoCD application sets
 
 ```sh

@@ -12,8 +12,8 @@ spec:
       - resources:
           kinds:
           - Namespace
-        operations:
-        - CREATE
+          operations:
+          - CREATE
     exclude:
       any:
       - subjects:

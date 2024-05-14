@@ -11,14 +11,12 @@ spec:
   rules:
     - name: generate-owner-role
       match:
-        resources:
-          kinds:
+        any:
+        - resources:
+            kinds:
             - Namespace
-          operations:
+            operations:
             - CREATE
-      exclude:
-        clusterRoles:
-          - "cluster-admin"
       generate:
         synchronize: true
         kind: ClusterRole
@@ -36,14 +34,12 @@ spec:
                 - "{{request.object.metadata.name}}"
     - name: generate-owner-role-binding
       match:
-        resources:
-          kinds:
+        any:
+        - resources:
+            kinds:
             - Namespace
-          operations:
-            - CREATE    
-      exclude:
-        clusterRoles:
-          - "cluster-admin"
+            operations:
+            - CREATE
       generate:
         synchronize: true
         kind: ClusterRoleBinding
@@ -62,14 +58,12 @@ spec:
               name: "{{request.object.metadata.labels.owner}}"
     - name: generate-admin-binding
       match:
-        resources:
-          kinds:
+        any:
+        - resources:
+            kinds:
             - Namespace
-          operations:
+            operations:
             - CREATE
-      exclude:
-        clusterRoles:
-          - "cluster-admin"
       generate:
         synchronize: true
         kind: RoleBinding

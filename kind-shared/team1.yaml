@@ -1,5 +1,7 @@
 applications:
   shared-test:
+    additionalLabels:
+      owner: ned
     project: default
     finalizers:
     - resources-finalizer.argocd.argoproj.io

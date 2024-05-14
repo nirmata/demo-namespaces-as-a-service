@@ -12,11 +12,17 @@ spec:
       - resources:
           kinds:
           - Namespace
+        operations:
+        - CREATE
     exclude:
       any:
       - subjects:
         - kind: User
           name: kubernetes-admin
+        - kind: User
+          name: system:serviceaccount:kube-system:generic-garbage-collector
+        - kind: User
+          name: cluster-admin
     validate:
       message: >-
         Namespaces are managed via ArgoCD on this cluster.

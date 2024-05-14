@@ -2,11 +2,11 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: "ns-admin"
+  name: "ns-list"
 rules:
   - apiGroups: [""]
     resources: ["namespaces"]
-    verbs: ["create", "list"]
+    verbs: ["list"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -17,7 +17,7 @@ subjects:
     name: nancy
 roleRef:
   kind: ClusterRole
-  name: ns-admin
+  name: ns-list
   apiGroup: rbac.authorization.k8s.io
 ---
 kind: ClusterRoleBinding
@@ -29,5 +29,5 @@ subjects:
     name: ned
 roleRef:
   kind: ClusterRole
-  name: ns-admin
+  name: ns-list
   apiGroup: rbac.authorization.k8s.io

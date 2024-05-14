@@ -19,10 +19,10 @@ spec:
       sources:
       - repoURL: https://github.com/nirmata/kyverno-policies
         targetRevision: HEAD
-        path: pod-security/enforce
+        path: pod-security/restricted
       - repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
-      targetRevision: HEAD
-      path: config/policies-managed-clusters
+        targetRevision: HEAD
+        path: config/shared-cluster/policies/
       destination:
         server: '{{server}}'
       syncPolicy:

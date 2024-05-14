@@ -25,6 +25,6 @@ echo "created /tmp/kind-config:"
 cat /tmp/kind-config.yaml
 
 echo "Create a KIND cluster using:"
-echo "  kind create cluster --name shared1 --config /tmp/kind-config.yaml"
+echo "  kind create cluster --name shared --config /tmp/kind-config.yaml"
 echo " "
 

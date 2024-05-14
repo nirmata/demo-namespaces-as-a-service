@@ -10,21 +10,7 @@ This repository contains a demo of self-service namespaces using GitOps and Poli
 kind create cluster --name argocd
 ```
 
-2. Install and configure Kyverno
-
-Install latest Kyverno (not recommended for production):
-
-```sh
-kubectl create -f https://github.com/kyverno/kyverno/raw/main/config/install-latest-testing.yaml
-```
-
-Install Kyverno policies for the `hub` cluster:
-
-```sh
-kubectl apply -f config/policies/
-```
-
-3. Install and configure ArgoCD
+2. Install and configure ArgoCD
 
 ```sh
 kubectl create namespace argocd
@@ -67,17 +53,35 @@ kubectl -n argocd patch configmap argocd-cm --type merge -p '{"data":{"applicati
 Install ArgoCD application sets
 
 ```sh
-kubectl apply -f config/appsets/
+kubectl apply -f config/argocd-cluster/appsets/
 ```
 
-3. Create a shared cluster
+3. Install and configure Kyverno
+
+Install latest Kyverno (not recommended for production):
+
+```sh
+kubectl create -f https://github.com/kyverno/kyverno/raw/main/config/install-latest-testing.yaml
+```
+
+Install Kyverno policies for the `argocd` cluster:
+
+```sh
+kubectl apply -f config/argocd-cluster/roles/
+```
+
+```sh
+kubectl apply -f config/argocd-cluster/policies/
+```
+
+4. Create a shared cluster
 
 To allow ArgoCD on the `argocd` cluster to communicate with the `shared` cluster, the `shared` cluster needs to be configured to use an external IP address i.e. your local machine address.
 
 Run this script to create a kind configuration:
 
 ```sh
-./config/kind/create.sh
+./config/shared-cluster/kind/create.sh
 ```
 
 Create the kind cluster:
@@ -86,12 +90,16 @@ Create the kind cluster:
 kind create cluster --name shared --config /tmp/kind-config.yaml
 ```
 
-3. Create a Namespace on the shared cluster
+```sh
+argocd cluster add kind-shared  -y
+```
+
+Create the kind cluster:
+
+
+5. Secure self-service apps and namespaces
 
 ...
-
-
-4. Create an Application on the shared cluster
 
 ...
 

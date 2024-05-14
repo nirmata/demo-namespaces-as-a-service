@@ -1,0 +1,37 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: update-shared-clusters-cm
+spec:
+  rules:
+    - name: watch-secret
+      match:
+        all:
+        - resources:
+            namespaces:
+            - argocd
+            kinds:
+            - Secret
+            selector:
+              matchLabels:
+                argocd.argoproj.io/secret-type: cluster
+            operations:
+            - CREATE
+      context:
+      - name: name
+        variable:
+          value: "{{  request.object.data.name | base64_decode(@) }}"
+          jmesPath: 'to_string(@)'
+      - name: server
+        variable:
+          value: "{{ request.object.data.server | base64_decode(@) }}"
+          jmesPath: 'to_string(@)'
+      mutate:
+        targets:
+        - apiVersion: v1
+          kind: ConfigMap
+          name: shared-clusters
+          namespace: "kyverno"
+        patchStrategicMerge:
+          data:
+            address: "{{server}}"

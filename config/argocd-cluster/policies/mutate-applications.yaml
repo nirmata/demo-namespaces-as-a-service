@@ -6,12 +6,22 @@ spec:
   rules:
   - name: set-defaults
     match:
-      any:
+      all:
       - resources:
           kinds:
           - Application
           operations:
           - CREATE
+    exclude:
+      any:
+      - resources:
+          names:
+          - "cluster-*"
+    context:
+    - name: sharedclusters
+      configMap:
+        name: shared-clusters
+        namespace: kyverno
     mutate:
       patchStrategicMerge:
         finalizers:
@@ -19,7 +29,7 @@ spec:
         spec:
           +(project): default
           destination:
-            +(server): 'https://10.0.0.107:64571'
+            +(server): "{{ sharedclusters.data.address }}"
           syncPolicy:
             automated:
               prune: true

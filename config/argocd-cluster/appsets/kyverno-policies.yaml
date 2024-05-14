@@ -1,37 +1,35 @@
 kind: ApplicationSet
 apiVersion: argoproj.io/v1alpha1
 metadata:
-  name: kyverno
+  name: kyverno-policies
   namespace: argocd
 spec:
   generators:
   - clusters:
       selector:
         matchLabels:
-          argocd.argoproj.io/secret-type: cluster     
+          argocd.argoproj.io/secret-type: cluster
   template: 
     metadata:
-      name: '{{name}}-kyverno'
+      name: 'cluster-{{name}}-policies'
       annotations:
-        argocd.argoproj.io/sync-wave: "1"
-      finalizers:
-      - resources-finalizer.argocd.argoproj.io
+        argocd.argoproj.io/sync-wave: "3"
     spec:
       project: "default"
       sources:
-      - chart: kyverno
-        repoURL: https://kyverno.github.io/kyverno/
-        targetRevision: 3.2.2
+      - repoURL: https://github.com/nirmata/kyverno-policies
+        targetRevision: HEAD
+        path: pod-security/enforce
+      - repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
+      targetRevision: HEAD
+      path: config/policies-managed-clusters
       destination:
         server: '{{server}}'
-        namespace: kyverno
       syncPolicy:
         syncOptions:
         - Replace=true
-        - CreateNamespace=true
         automated:
           selfHeal: true
-          prune: true
         retry:
           limit: 30
           backoff:

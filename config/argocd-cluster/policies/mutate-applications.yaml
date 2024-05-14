@@ -27,6 +27,7 @@ spec:
             managedNamespaceMetadata:
               labels:
                 argocd.argoproj.io/instance: "{{request.name}}"
+                owner: "{{request.object.metadata.labels.owner}}"
               annotations:
                 argocd.argoproj.io/tracking-id: >-
                   {{request.name}}:apps/Namespace:{{request.object.spec.destination.namespace}}/{{request.object.spec.destination.namespace}}

@@ -44,7 +44,7 @@ spec:
                 revision: HEAD
             template:
               metadata:
-                name: '\{{path.basename}}-\{{path.filename}}'
+                name: 'cluster-\{{path.basename}}-\{{path.filename}}'
                 finalizers:
                 - resources-finalizer.argocd.argoproj.io
                 annotations:

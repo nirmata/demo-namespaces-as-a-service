@@ -16,7 +16,7 @@ applications:
         selfHeal: true
       managedNamespaceMetadata:
         labels:
-          argocd.argoproj.io/instance: nginx-shared2
+          argocd.argoproj.io/instance: test
         annotations:
           argocd.argoproj.io/tracking-id: >-
             nginx-shared2:apps/Namespace:nginx/nginx

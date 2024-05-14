@@ -365,6 +365,21 @@ rules:
 - apiGroups:
   - kyverno.io
   resources:
+  - admissionreports
+  - clusteradmissionreports
+  - backgroundscanreports
+  - clusterbackgroundscanreports
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - reports.kyverno.io
+  resources:
   - ephemeralreports
   - clusterephemeralreports
   verbs:

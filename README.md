@@ -1,6 +1,6 @@
 # Namespaces-as-a-Service with Policy as Code (PaC)
 
-This repository contains a demo of self-service namespaces using GitOps and Policy as Code (PaC).
+This repository contains a demo of self-service namespaces and apps, using ArgoCD for GitOps and Kyverno for Policy as Code (PaC).
 
 The setup runs ArgoCD on its own `hub` cluster and creates namespaces and applications on a `shared` cluster. For the demo, we will use `kind` clusters for both. In a production setup the `shared` cluster will have auto-scalers for resizing.
 

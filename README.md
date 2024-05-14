@@ -2,6 +2,8 @@
 
 This repository contains a demo of self-service namespaces using GitOps and Policy as Code (PaC).
 
+The setup runs ArgoCD on its own `hub` cluster and creates namespaces and applications on a `shared` cluster. For the demo, we will use `kind` clusters for both. In a production setup the `shared` cluster will have auto-scalers for resizing.
+
 ## Installation
 
 1. Install [kind](https://kind.sigs.k8s.io/) and create a cluster for ArgoCD:
@@ -95,19 +97,21 @@ Create the kind cluster:
 kind create cluster --name shared --config /tmp/kind-config.yaml
 ```
 
+Register the kind cluster with ArgoCD:
+
 ```sh
 argocd cluster add kind-shared  -y
 ```
 
-Create the kind cluster:
+5. Create secure self-service apps and namespaces 
 
+When the shared cluster is registered with ArgoCD a secret is created. The Kyverno policy [create-cluster-appset.yaml](config/argocd-cluster/policies/create-cluster-appset.yaml) watches the secret and will automatically create an `ApplicationSet` that watches a Git directory `https://github.com/nirmata/demo-namespaces-as-a-service/tree/main/kind-shared` for new values file with requests for applications. 
 
-5. Secure self-service apps and namespaces
+**NOTE: If you fork the repository, please update the policy to point to your own location for the Git commits.**
 
-...
+Check-in `Applications` or `ApplicationSets` to the `https://github.com/nirmata/demo-namespaces-as-a-service/tree/main/kind-shared` respository.
 
-...
-
+See [sample-apps](https://github.com/nirmata/demo-namespaces-as-a-service/tree/main/config/sample-apps) for examples.
 
 ## Cleanup
 

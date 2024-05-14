@@ -24,6 +24,8 @@ spec:
         targetRevision: 3.2.2
         helm:
           releaseName: kyverno
+          valuesObject:
+             kyverno.fullname: kyverno
       destination:
         server: '{{server}}'
         namespace: kyverno

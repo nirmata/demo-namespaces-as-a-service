@@ -1,4 +1,4 @@
-# Namespaces-as-a-Service with Policy as Code (PaC)
+# Self-Service Namespaces with Policy as Code (PaC)
 
 This repository contains a demo of self-service namespaces and apps, using ArgoCD for GitOps and Kyverno for Policy as Code (PaC).
 

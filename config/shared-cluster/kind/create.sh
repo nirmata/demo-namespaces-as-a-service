@@ -17,7 +17,7 @@ fi
 
 echo "Using IP address $EXTERNAL_IP"
 
-cp config/kind/kind-config.yaml /tmp/kind-config.yaml
+cp config/shared-cluster/kind/kind-config.yaml /tmp/kind-config.yaml
 
 sed -i '' 's/127.0.0.1/'$EXTERNAL_IP'/g' /tmp/kind-config.yaml
 

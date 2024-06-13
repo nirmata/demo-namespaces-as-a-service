@@ -19,9 +19,9 @@ spec:
     spec:
       project: "default"
       sources:
-      - chart: nirmata
-        repoURL: https://nirmata.github.io/kyverno-charts/
-        targetRevision: release-chart-1.11 
+      - chart: kyverno
+        repoURL: https://kyverno.github.io/kyverno/
+        targetRevision: 3.2.2
         helm:
           releaseName: kyverno
           valuesObject:

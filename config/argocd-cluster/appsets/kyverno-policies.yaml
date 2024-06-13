@@ -17,9 +17,9 @@ spec:
     spec:
       project: "default"
       sources:
-      - repoURL: https://github.com/nsagark/mystuff.git
-        targetRevision: tnt2
-        path: mypolicies/
+      - repoURL: https://github.com/nirmata/robinhood-pov.git
+        targetRevision: main
+        path: Policies/
       destination:
         server: '{{server}}'
       syncPolicy:

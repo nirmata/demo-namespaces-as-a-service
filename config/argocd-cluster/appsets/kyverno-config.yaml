@@ -9,7 +9,7 @@ spec:
       selector:
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
-  template: 
+  template:
     metadata:
       name: 'cluster-{{name}}-config'
       annotations:
@@ -18,7 +18,7 @@ spec:
       project: "default"
       sources:
       - repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
-        targetRevision: HEAD
+        targetRevision: robinhooddemo
         path: config/shared-cluster/roles/
       destination:
         server: '{{server}}'

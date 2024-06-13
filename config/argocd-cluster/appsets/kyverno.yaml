@@ -8,8 +8,8 @@ spec:
   - clusters:
       selector:
         matchLabels:
-          argocd.argoproj.io/secret-type: cluster     
-  template: 
+          argocd.argoproj.io/secret-type: cluster
+  template:
     metadata:
       name: 'cluster-{{name}}-kyverno'
       annotations:
@@ -19,13 +19,13 @@ spec:
     spec:
       project: "default"
       sources:
-      - chart: kyverno
-        repoURL: https://kyverno.github.io/kyverno/
-        targetRevision: 3.2.2
+      - chart: nirmata
+        repoURL: https://nirmata.github.io/kyverno-charts/
+        targetRevision: release-chart-1.11 
         helm:
           releaseName: kyverno
           valuesObject:
-             kyverno.fullname: kyverno
+            kyverno.fullname: kyverno
       destination:
         server: '{{server}}'
         namespace: kyverno

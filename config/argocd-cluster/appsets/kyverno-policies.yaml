@@ -9,7 +9,7 @@ spec:
       selector:
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
-  template: 
+  template:
     metadata:
       name: 'cluster-{{name}}-policies'
       annotations:
@@ -17,12 +17,9 @@ spec:
     spec:
       project: "default"
       sources:
-      - repoURL: https://github.com/nirmata/kyverno-policies
-        targetRevision: HEAD
-        path: pod-security/enforce
-      - repoURL: https://github.com/nirmata/demo-namespaces-as-a-service
-        targetRevision: HEAD
-        path: config/shared-cluster/policies/
+      - repoURL: https://github.com/nsagark/mystuff.git
+        targetRevision: tnt2
+        path: mypolicies/
       destination:
         server: '{{server}}'
       syncPolicy:

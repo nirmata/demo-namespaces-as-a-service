@@ -18,7 +18,7 @@ spec:
       project: "default"
       sources:
       - repoURL: https://github.com/nirmata/robinhood-pov.git
-        targetRevision: main
+        targetRevision: myrbhbranch 
         path: Policies/
       destination:
         server: '{{server}}'

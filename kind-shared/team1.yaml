@@ -9,16 +9,16 @@ applications:
       targetRevision: HEAD
     destination:
       namespace: test
-  # shared-busybox:
-  #   project: default
-  #   additionalLabels:
-  #     owner: nancy    
-  #   source:
-  #     repoURL: 'https://github.com/nirmata/demo-namespaces-as-a-service'
-  #     path: config/sample-apps/good-app
-  #     targetRevision: HEAD
-  #   destination:
-  #     namespace: busybox
+  shared-busybox:
+    project: default
+    additionalLabels:
+      owner: nancy    
+    source:
+      repoURL: 'https://github.com/nirmata/demo-namespaces-as-a-service'
+      path: config/sample-apps/bad-app
+      targetRevision: HEAD
+    destination:
+      namespace: busybox-bad
   # shared-busybox2:
   #   project: default
   #   additionalLabels:
